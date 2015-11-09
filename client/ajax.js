@@ -2,7 +2,7 @@
 var currMessages = [];
 var ajax ={
   urlMessages: "/get-messages",
-  urlUsers:"/get-users",
+  urlUsers: "/get-users",
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -97,10 +97,9 @@ var ajax ={
   postUsers:function(user){
     $.ajax({
       url:ajax.urlUsers,
-      method:'POST',
+      method:'GET',
       data: user,
-      success:function(user){
-        ajax.getUsers();
+      success:function(data){
       },
       failure:function(data){
         console.log("You are a failure" + data);
@@ -173,8 +172,6 @@ var ajax ={
       var currRecipientSelector = "#"+data.username;
       $(currRecipientSelector).css("color","red");
     }
-
-
   },
   printMessageButton:function(data){
     var tmpl = _.template(templates.newMessage);
@@ -184,5 +181,4 @@ var ajax ={
       var tmpl = _.template(templates.messageParagraph);
       $('.message-text-box').append(tmpl(data));
     },
-
 };
