@@ -8,7 +8,6 @@ var page = {
   page.events();
   },
   styles:function(){
-    ajax.getUsers();
     ajax.getMessageButtons();
     setInterval(ajax.getNewMessageButtons,1000);
   },
@@ -22,7 +21,7 @@ events:function(){
     });
     //event handler Enter button on sign-in page
     $('#enter-sign-in').on('click' ,function(e){
-        page.signIn();
+        ajax.getUsers();
     });
     $('.sign-in').on('keypress',function(e){
       if(e.which === 13){
@@ -98,9 +97,6 @@ events:function(){
         status: false,
     };
     ajax.postUsers(data);
-  },
-  signIn: function(){
-    // ajax.loginUsers();
   },
   //thank you w3 schools
   countDown:function(messageId){
