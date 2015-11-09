@@ -109,7 +109,7 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: "/get-messages",
+      url: '/send-message',
       method: 'POST',
       data: message,
       success: function(resp) {
@@ -147,6 +147,15 @@ var ajax ={
           var uniqueUrl = ajax.urlUsers + id;
           ajax.deleteUsers(id);
         });
+      }
+    });
+  },
+  deleteUsers:function(){
+    $.ajax({
+      method:'DELETE',
+      url:ajax.urlUsers,
+      success:function(){
+        console.log('yay');
       }
     });
   },

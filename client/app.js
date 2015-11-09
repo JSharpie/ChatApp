@@ -52,7 +52,7 @@ events:function(){
     //post message to database/to screen
     $('#message-form').on('click','.submit-message',function(e){
       e.preventDefault();
-        data ={
+        var data = {
             username: localStorage['username'],
             recipient: localStorage['recipient'],
             message:$('input[name="message"]').val(),
@@ -88,7 +88,14 @@ events:function(){
   createAccount:function(){
     var data = {
       username: $('input[name="rusername"]').val(),
-      password: $('input[name="rpassword"]').val(),
+      password:function(){
+        if($('input[name="rpassword"]').val() === $('input[name="rpassword-confirm"]').val()){
+          return $('input[name="rpassword"]').val();
+        }
+        else{
+          alert('password mismatch');
+        }
+      },
     };
     ajax.postUsers(data);
   },
