@@ -87,8 +87,8 @@ events:function(){
 },
   createAccount:function(){
     var data = {
-      username: $('input[name="username"]').val(),
-      password: $('input[name="password"]').val(),
+      username: $('input[name="rusername"]').val(),
+      password: $('input[name="rpassword"]').val(),
     };
     ajax.postUsers(data);
   },

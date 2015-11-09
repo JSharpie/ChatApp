@@ -96,10 +96,11 @@ var ajax ={
   },
   postUsers:function(user){
     $.ajax({
-      url:ajax.urlUsers,
-      method:'GET',
+      url:'/login',
+      method:'POST',
       data: user,
       success:function(data){
+        console.log('yay');
       },
       failure:function(data){
         console.log("You are a failure" + data);
@@ -108,7 +109,7 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: "/send-message",
+      url: "/get-messages",
       method: 'POST',
       data: message,
       success: function(resp) {
