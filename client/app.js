@@ -2,47 +2,45 @@ $(document).ready(function(){
   page.init();
 });
 var page = {
-
   init:function(){
-  page.styles();
-  page.events();
+    page.styles();
+    page.events();
   },
   styles:function(){
     ajax.getMessageButtons();
     setInterval(ajax.getNewMessageButtons,1000);
   },
-events:function(){
+  events:function(){
     //event handler for sign-in button 'register'
     $('.sign-in').on('click', '#register',function(e){
-        $('.sign-in').removeClass('display-block');
-        $('.sign-in').addClass('display-none');
-        $('.register').removeClass('display-none');
-        $('.register').addClass('display-block');
+      $('.sign-in').removeClass('display-block');
+      $('.sign-in').addClass('display-none');
+      $('.register').removeClass('display-none');
+      $('.register').addClass('display-block');
     });
     //event handler Enter button on sign-in page
     $('#enter-sign-in').on('click' ,function(e){
-        ajax.getUsers();
+      ajax.getUsers();
     });
     $('.sign-in').on('keypress',function(e){
       if(e.which === 13){
         $('#enter-sign-in').click();
       }
     });
-
     //event handler for register page login-in button
     $('.register').on('click', '#sign-in',function(e){
-        $('.register').removeClass('display-block');
-        $('.register').addClass('display-none');
-        $('.sign-in').removeClass('display-none');
-        $('.sign-in').addClass('display-block');
+      $('.register').removeClass('display-block');
+      $('.register').addClass('display-none');
+      $('.sign-in').removeClass('display-none');
+      $('.sign-in').addClass('display-block');
     });
     //event handler Enter button on register page
     $('#enter-register').on('click' ,function(e){
-        $('.register').removeClass('display-block');
-        $('.register').addClass('display-none');
-        $('.sign-in').removeClass('display-none');
-        $('.sign-in').addClass('display-block');
-        page.createAccount();
+      $('.register').removeClass('display-block');
+      $('.register').addClass('display-none');
+      $('.sign-in').removeClass('display-none');
+      $('.sign-in').addClass('display-block');
+      page.createAccount();
     });
     $('.register').on('keypress',function(e){
       if(e.which === 13){
@@ -52,22 +50,20 @@ events:function(){
     //post message to database/to screen
     $('#message-form').on('click','.submit-message',function(e){
       e.preventDefault();
-        var data = {
-            username: localStorage['username'],
-            recipient: localStorage['recipient'],
-            message:$('input[name="message"]').val(),
-        };
-        console.log(data);
-
-        ajax.postMessages(data);
-        $('input[name="message"]').val('');
-      });
-      $('.submit-message').on('keypress',function(e){
-          if(e.which === 13){
-            $('#message-form').click();
-          }
-      });
-
+      var data = {
+        username: localStorage['username'],
+        recipient: localStorage['recipient'],
+        message:$('input[name="message"]').val(),
+      };
+      console.log(data);
+      ajax.postMessages(data);
+      $('input[name="message"]').val('');
+    });
+    $('.submit-message').on('keypress',function(e){
+      if(e.which === 13){
+        $('#message-form').click();
+      }
+    });
       $('.users').on('click','p',function(){
         var recipient = $(this).closest('div').attr('id');
         localStorage.setItem('recipient', recipient);
@@ -81,10 +77,8 @@ events:function(){
         var navBarID = $(this).closest('li').attr('id');
         page.countDown(navBarID);
         ajax.getMessageText(navBarID);
-
       });
-
-},
+    },
   createAccount:function(){
     var data = {
       username: $('input[name="rusername"]').val(),
@@ -114,8 +108,6 @@ events:function(){
       if (setTime === 0) {
           ajax.deleteMessages(messageId,liSelector,paragraphSelector);
       }
-  }, 1000);
+    }, 1000);
   },
-
-
 };

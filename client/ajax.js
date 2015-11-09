@@ -9,10 +9,9 @@ var ajax ={
       method:'GET',
       data: ajax.urlUsers,
       success:function(data){
-        // console.log(data);
         var parsedData = JSON.parse(data);
         _.each(parsedData, function(el, idx, arr){
-          ajax.printUsers(el, 'users');
+        ajax.printUsers(el, 'users');
         if(idx > 0 && $('input[name="rusername"]').val() === el.username){
           $.ajax({
             url:ajax.urlUsers + el._id,
@@ -30,10 +29,8 @@ var ajax ={
           $('.main').addClass('display-block');
           localStorage.setItem('username',el.username);
         }
-        else{
-        }
       });
-      },
+    },
       failure: function(user){
         console.log(user +":did not load");
       }
@@ -71,7 +68,7 @@ var ajax ={
             if(!_.contains(currMessages,el._id)){
             ajax.printMessageButton(el);
             currMessages.push(el._id);
-              }
+            }
           }
         });
       },
@@ -81,18 +78,18 @@ var ajax ={
     });
   },
   getMessageText:function(messageId){
-      $.ajax({
-        type:'GET',
-        url:"/get-messages",
-        success:function(data){
-          var parsedData = JSON.parse(data);
-          _.each(parsedData,function(el){
-            if(el._id == messageId){
-              ajax.printMessageText(el);
-            }
-          });
-        }
-      });
+    $.ajax({
+      type:'GET',
+      url:"/get-messages",
+      success:function(data){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
+          if(el._id == messageId){
+            ajax.printMessageText(el);
+          }
+        });
+      }
+    });
   },
   postUsers:function(user){
     $.ajax({
@@ -120,7 +117,6 @@ var ajax ={
       }
     });
   },
-
   deleteMessages:function(messageId,liSelector,paragraphSelector){
     $.ajax({
       method: 'POST',
