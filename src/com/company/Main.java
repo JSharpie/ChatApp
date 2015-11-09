@@ -174,12 +174,14 @@ public class Main {
         Spark.get(
                 "/get-messages",
                 ((request, response) -> {
-                    JsonSerializer serializer = new JsonSerializer();
-                    String json = serializer.serialize(selectMessages(conn));
-                    return json;
+                    try {
+                        JsonSerializer serializer = new JsonSerializer();
+                        String json = serializer.serialize(selectMessages(conn));
+                        return json;
+                    }catch (Exception e) {}
+                    return "";
                 })
         );
-
         Spark.get(
                 "/get-users",
                 ((request, response) -> {
@@ -220,6 +222,27 @@ public class Main {
                     } catch (Exception e) {
 
                     }
+                    return "";
+                })
+        );
+
+        Spark.post(
+                "/create-user",
+                ((request, response) -> {
+                    String username = request.queryParams("username");
+                    String password = request.queryParams("password");
+
+                    if (username.isEmpty() || password.isEmpty()) {
+                        Spark.halt(403);
+                    }
+
+                    User user = selectUser(conn, username);
+                    if (user == null) {
+                        insertUser(conn, username, password);
+                    } else if (!password.equals(user.password)) {
+                        Spark.halt(403);
+                    }
+
                     return "";
                 })
         );
